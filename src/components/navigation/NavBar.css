@@ -1,0 +1,16 @@
+.navigation-toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.navigation-toolbar ul {
+  display: flex;
+  list-style: none;
+}
+
+.navigation-toolbar li {
+}
+
+.navigation-toolbar a {
+  text-decoration: none;
+}
