@@ -1,6 +1,7 @@
 .navigation-toolbar {
   display: flex;
   justify-content: center;
+  background-color: cadetblue;
 }
 
 .navigation-toolbar ul {
@@ -15,4 +16,5 @@
 
 .navigation-toolbar a {
   text-decoration: none;
+  color: white;
 }
