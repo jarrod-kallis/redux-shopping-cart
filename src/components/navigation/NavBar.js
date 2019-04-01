@@ -1,19 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './NavBar.css';
 
-const NavBar = ({ numOfSelectedProducts }) => (
-  <nav className="navigation-toolbar">
-    <ul>
-      <li>
-        <Link to="/">Products</Link>
-      </li>
-      <li>
-        <Link to="/cart">Cart ({numOfSelectedProducts})</Link>
-      </li>
-    </ul>
-  </nav>
-);
+class NavBar extends React.Component {
+  render() {
+    return (
+      <nav className="navigation-toolbar">
+        <ul>
+          <li>
+            <Link to="/">Products</Link>
+          </li>
+          <li>
+            <Link to="/cart">Cart ({this.props.numOfSelectedProducts})</Link>
+          </li>
+        </ul>
+      </nav>
+    );
+  }
+}
 
-export default NavBar;
+const mapStateToProps = state => ({
+  numOfSelectedProducts: state.cart.totalNumOfProductsSelected
+});
+
+export default connect(mapStateToProps)(NavBar);

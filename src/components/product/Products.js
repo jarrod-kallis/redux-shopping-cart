@@ -1,12 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Product from './Product';
+import { addToCart } from '../../actions/cartActions';
 
 class Products extends React.Component {
-  onProductClick = product => {
-    this.props.click(product);
-  };
-
   render() {
     const products = this.props.products.map(product => {
       return (
@@ -14,7 +12,7 @@ class Products extends React.Component {
           key={product.id}
           name={product.name}
           price={product.displayPrice}
-          click={() => this.onProductClick(product)}
+          click={() => this.props.addToCart(product)}
         />
       );
     });
@@ -23,4 +21,11 @@ class Products extends React.Component {
   }
 }
 
-export default Products;
+const mapStateToProps = state => ({
+  products: state.products
+});
+
+export default connect(
+  mapStateToProps,
+  { addToCart }
+)(Products);
