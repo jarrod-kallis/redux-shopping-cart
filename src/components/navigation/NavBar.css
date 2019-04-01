@@ -6,9 +6,11 @@
 .navigation-toolbar ul {
   display: flex;
   list-style: none;
+  padding-left: 0;
 }
 
-.navigation-toolbar li {
+.navigation-toolbar li:not(:first-child) {
+  margin-left: 25px;
 }
 
 .navigation-toolbar a {

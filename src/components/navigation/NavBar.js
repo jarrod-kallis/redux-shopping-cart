@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './NavBar.css';
 
@@ -6,10 +7,10 @@ const NavBar = () => (
   <nav className="navigation-toolbar">
     <ul>
       <li>
-        <a href="#">Products</a>
+        <Link to="/">Products</Link>
       </li>
       <li>
-        <a href="#">Cart</a>
+        <Link to="/cart">Cart</Link>
       </li>
     </ul>
   </nav>

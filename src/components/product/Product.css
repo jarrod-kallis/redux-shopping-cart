@@ -1,0 +1,24 @@
+.product {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  min-height: 75px;
+  margin: 10px;
+  border: 1px solid grey;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.product .spacer {
+  flex-grow: 1;
+}
+
+.product .name {
+  font-weight: 600;
+  flex-wrap: nowrap;
+}
+
+.product .price {
+  flex-wrap: nowrap;
+}
