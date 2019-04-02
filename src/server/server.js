@@ -14,25 +14,27 @@ app.get('/api/products', (req, res) => {
 });
 
 app.post('/api/cart', (req, res) => {
-  // console.log(req.body.product);
-  // const cartFilePath = path.join(__dirname, 'cartData.json');
-  // fs.readFile(cartFilePath, 'utf8', (err, data) => {
-  //   console.log(data);
-  //   if (!data) {
-  //     fs.writeFile(cartFilePath, JSON.stringify([req.body.product]), () => {
-  //       res.send('');
-  //     });
-  //   } else {
-  //     let cartData = JSON.parse(...data);
-  //     cartData.push(req.body.product);
-  //     console.log(cartData);
+  console.log('What was sent in: ', req.body.product);
+  const cartFilePath = path.join(__dirname, 'cartData.json');
+  fs.readFile(cartFilePath, 'utf8', (err, data) => {
+    console.log('What was read from the file: ', data);
+    if (!data) {
+      fs.writeFile(cartFilePath, JSON.stringify([req.body.product]), () => {
+        res.send('');
+      });
+    } else {
+      console.log('First pass:');
+      let cartData = JSON.parse(data);
+      console.log('1', cartData);
+      cartData.push(req.body.product);
+      console.log('2', cartData);
 
-  //     fs.appendFile(cartFilePath, JSON.stringify([JSON.parse(...data), req.body.product]), () => {
-  //       res.send('');
-  //     });
-  //   }
-  // });
-  res.send('TODO');
+      fs.appendFile(cartFilePath, JSON.stringify(cartData), () => {
+        res.send('');
+      });
+    }
+  });
+  // res.send('TODO');
 });
 
 app.get('/', (req, res) => {
