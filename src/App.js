@@ -8,10 +8,12 @@ import NavBar from './components/navigation/NavBar';
 import Products from './components/product/Products';
 import Cart from './components/cart/Cart';
 import { get as getProducts } from './actions/productActions';
+import { get as getCart } from './actions/cartActions';
 
 class App extends Component {
   componentDidMount() {
     this.props.getProducts();
+    this.props.getCart();
   }
 
   render() {
@@ -35,5 +37,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { getProducts }
+  { getProducts, getCart }
 )(App);

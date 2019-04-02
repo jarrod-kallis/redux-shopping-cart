@@ -1,24 +1,19 @@
 import api from '../api';
 
+export const PRODUCTS_LOADING = 'PRODUCTS_LOADING';
 export const PRODUCTS_RETRIEVED = 'PRODUCTS_RETRIEVED';
-export const RETRIEVING_PRODUCTS = 'RETRIEVING_PRODUCTS';
 
-export const retrievingProducts = () => ({
-  type: RETRIEVING_PRODUCTS
-});
-
-export const productsRetrieved = (products) => ({
+export const productsRetrieved = products => ({
   type: PRODUCTS_RETRIEVED,
   products
 });
 
 export const get = () => async dispatch => {
-  dispatch(retrievingProducts());
+  dispatch({ type: PRODUCTS_LOADING });
   try {
     const products = await api.products.get();
     dispatch(productsRetrieved(products));
-  }
-  catch (err) {
+  } catch (err) {
     return console.log(err);
   }
-}
+};

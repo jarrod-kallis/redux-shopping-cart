@@ -10,31 +10,61 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/api/products', (req, res) => {
   fs.readFile(path.join(__dirname, 'productData.json'), (err, data) => {
     setTimeout(() => res.send(data), 750);
-  })
+  });
+});
+
+app.get('/api/cart', (req, res) => {
+  const cartFilePath = path.join(__dirname, 'cartData.json');
+
+  fs.readFile(cartFilePath, 'utf8', (err, data) => {
+    let selectedProducts = data ? JSON.parse(data) : [];
+
+    res.send(selectedProducts);
+  });
 });
 
 app.post('/api/cart', (req, res) => {
-  console.log('What was sent in: ', req.body.product);
+  const selectedProduct = req.body.product;
   const cartFilePath = path.join(__dirname, 'cartData.json');
-  fs.readFile(cartFilePath, 'utf8', (err, data) => {
-    console.log('What was read from the file: ', data);
-    if (!data) {
-      fs.writeFile(cartFilePath, JSON.stringify([req.body.product]), () => {
-        res.send('');
-      });
-    } else {
-      console.log('First pass:');
-      let cartData = JSON.parse(data);
-      console.log('1', cartData);
-      cartData.push(req.body.product);
-      console.log('2', cartData);
 
-      fs.appendFile(cartFilePath, JSON.stringify(cartData), () => {
-        res.send('');
-      });
+  fs.readFile(cartFilePath, 'utf8', (err, data) => {
+    let selectedProducts = data ? JSON.parse(data) : [];
+    let productIndex = selectedProducts.findIndex(
+      p => p.id === selectedProduct.id
+    );
+
+    if (productIndex === -1) {
+      productIndex = selectedProducts.push(selectedProduct) - 1;
     }
+
+    selectedProducts[productIndex].quantity++;
+
+    fs.writeFile(cartFilePath, JSON.stringify(selectedProducts), () => {
+      res.send(selectedProducts);
+    });
   });
-  // res.send('TODO');
+});
+
+app.delete('/api/cart', (req, res) => {
+  const selectedProduct = req.body.product;
+  const cartFilePath = path.join(__dirname, 'cartData.json');
+
+  fs.readFile(cartFilePath, 'utf8', (err, data) => {
+    let selectedProducts = data ? JSON.parse(data) : [];
+    let productIndex = selectedProducts.findIndex(
+      p => p.id === selectedProduct.id
+    );
+
+    selectedProducts[productIndex].quantity--;
+
+    if (selectedProducts[productIndex].quantity <= 0) {
+      selectedProducts.splice(productIndex, 1);
+    }
+
+    fs.writeFile(cartFilePath, JSON.stringify(selectedProducts), () => {
+      res.send(selectedProducts);
+    });
+  });
 });
 
 app.get('/', (req, res) => {
@@ -43,6 +73,4 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(3001, () =>
-  console.log('Express server listening on port 3001!'),
-);
+app.listen(3001, () => console.log('Express server listening on port 3001!'));

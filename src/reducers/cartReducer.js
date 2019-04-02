@@ -1,53 +1,33 @@
-export const ADD_TO_CART = 'ADD_TO_CART';
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+import {
+  CART_LOADING,
+  GOT_CART,
+  ADDED_TO_CART,
+  REMOVED_FROM_CART
+} from '../actions/cartActions';
 
 const INITIAL_STATE = {
   selectedProducts: [],
-  totalNumOfProductsSelected: 0
+  totalNumOfProductsSelected: 0,
+  loading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
-  let selectedProducts;
-  let productIndex;
-
   switch (action.type) {
-    case ADD_TO_CART:
-      selectedProducts = [...state.selectedProducts];
-      productIndex = state.selectedProducts.findIndex(
-        p => p.id === action.product.id
-      );
-
-      if (productIndex === -1) {
-        productIndex = selectedProducts.push(action.product) - 1;
-      }
-
-      selectedProducts[productIndex].quantity++;
-
+    case CART_LOADING:
       return {
-        selectedProducts,
-        totalNumOfProductsSelected: selectedProducts.reduce(
-          (qty, product) => qty + product.quantity,
-          0
-        )
+        ...state,
+        loading: true
       };
-    case REMOVE_FROM_CART:
-      selectedProducts = [...state.selectedProducts];
-      productIndex = state.selectedProducts.findIndex(
-        p => p.id === action.product.id
-      );
-
-      selectedProducts[productIndex].quantity--;
-
-      if (selectedProducts[productIndex].quantity <= 0) {
-        selectedProducts.splice(productIndex, 1);
-      }
-
+    case GOT_CART:
+    case ADDED_TO_CART:
+    case REMOVED_FROM_CART:
       return {
-        selectedProducts,
-        totalNumOfProductsSelected: selectedProducts.reduce(
+        selectedProducts: action.products,
+        totalNumOfProductsSelected: action.products.reduce(
           (qty, product) => qty + product.quantity,
           0
-        )
+        ),
+        loading: false
       };
     default:
       return state;
