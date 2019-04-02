@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './NavBar.css';
@@ -10,10 +10,10 @@ class NavBar extends React.Component {
       <nav className="navigation-toolbar">
         <ul>
           <li>
-            <Link to="/">Products</Link>
+            <NavLink to="/" exact activeClassName="active-link">Products</NavLink>
           </li>
           <li>
-            <Link to="/cart">Cart ({this.props.numOfSelectedProducts})</Link>
+            <NavLink to="/cart" activeClassName="active-link">Cart ({this.props.numOfSelectedProducts})</NavLink>
           </li>
         </ul>
       </nav>

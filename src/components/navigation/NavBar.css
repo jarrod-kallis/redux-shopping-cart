@@ -16,5 +16,10 @@
 
 .navigation-toolbar a {
   text-decoration: none;
+  color: black;
+}
+
+.navigation-toolbar a.active-link {
   color: white;
+  font-weight: bold;
 }
