@@ -1,33 +1,24 @@
+import api from '../api';
+
 export const PRODUCTS_RETRIEVED = 'PRODUCTS_RETRIEVED';
+export const RETRIEVING_PRODUCTS = 'RETRIEVING_PRODUCTS';
 
-const PRODUCTS = [
-  {
-    id: 1,
-    name: 'Product 1',
-    displayPrice: 'R13.99',
-    price: 13.99,
-    quantity: 0
-  },
-  {
-    id: 2,
-    name: 'Product 2',
-    displayPrice: 'R200.00',
-    price: 200,
-    quantity: 0
-  },
-  {
-    id: 3,
-    name: 'Product 3',
-    displayPrice: 'R20000.00',
-    price: 20000,
-    quantity: 0
-  }
-];
-
-export const productsRetrieved = () => ({
-  type: PRODUCTS_RETRIEVED,
-  products: PRODUCTS
+export const retrievingProducts = () => ({
+  type: RETRIEVING_PRODUCTS
 });
 
-export const get = () => dispatch =>
-  setTimeout(() => dispatch(productsRetrieved()), 1000);
+export const productsRetrieved = (products) => ({
+  type: PRODUCTS_RETRIEVED,
+  products
+});
+
+export const get = () => async dispatch => {
+  dispatch(retrievingProducts());
+  try {
+    const products = await api.products.get();
+    dispatch(productsRetrieved(products));
+  }
+  catch (err) {
+    return console.log(err);
+  }
+}

@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 
 import Product from './Product';
 import { addToCart } from '../../actions/cartActions';
+import Loader from '../loader/Loader';
 
 class Products extends React.Component {
   render() {
+    if (this.props.loading) {
+      return <Loader />
+    }
+
     const products = this.props.products.map(product => {
       return (
         <Product
@@ -22,7 +27,8 @@ class Products extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.products
+  loading: state.products.loading,
+  products: state.products.products
 });
 
 export default connect(

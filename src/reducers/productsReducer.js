@@ -1,9 +1,22 @@
-import { PRODUCTS_RETRIEVED } from '../actions/productActions';
+import { PRODUCTS_RETRIEVED, RETRIEVING_PRODUCTS } from '../actions/productActions';
 
-export default (state = [], action) => {
+const INITIAL_STATE = {
+  products: [],
+  loading: false
+}
+
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case RETRIEVING_PRODUCTS:
+      return {
+        ...state,
+        loading: true
+      }
     case PRODUCTS_RETRIEVED:
-      return [...action.products];
+      return {
+        products: [...action.products],
+        loading: false
+      }
     default:
       return state;
   }
