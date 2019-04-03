@@ -17,7 +17,7 @@ class Products extends React.Component {
           key={product.id}
           name={product.name}
           price={product.displayPrice}
-          click={() => this.props.addToCart(product)}
+          click={() => this.props.addToCart(product.id)}
         />
       );
     });

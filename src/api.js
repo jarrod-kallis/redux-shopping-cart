@@ -13,14 +13,14 @@ export default {
   },
   cart: {
     get: () => fetch('/api/cart').then(res => res.json()),
-    add: async product => {
+    add: async productId => {
       try {
         const res = await fetch('/api/cart', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ product })
+          body: JSON.stringify({ id: productId })
         });
 
         const products = await res.json();

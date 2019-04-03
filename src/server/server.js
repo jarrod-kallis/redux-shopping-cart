@@ -24,7 +24,8 @@ app.get('/api/cart', (req, res) => {
 });
 
 app.post('/api/cart', (req, res) => {
-  const selectedProduct = req.body.product;
+  // body = {id}
+  const selectedProduct = req.body;
   const cartFilePath = path.join(__dirname, 'cartData.json');
 
   fs.readFile(cartFilePath, 'utf8', (err, data) => {
@@ -37,7 +38,8 @@ app.post('/api/cart', (req, res) => {
       productIndex = selectedProducts.push(selectedProduct) - 1;
     }
 
-    selectedProducts[productIndex].quantity++;
+    selectedProducts[productIndex].quantity =
+      (selectedProducts[productIndex].quantity || 0) + 1;
 
     fs.writeFile(cartFilePath, JSON.stringify(selectedProducts), () => {
       res.send(selectedProducts);
@@ -46,6 +48,7 @@ app.post('/api/cart', (req, res) => {
 });
 
 app.delete('/api/cart', (req, res) => {
+  // req.body.product = {id, quantity}
   const selectedProduct = req.body.product;
   const cartFilePath = path.join(__dirname, 'cartData.json');
 
@@ -55,7 +58,8 @@ app.delete('/api/cart', (req, res) => {
       p => p.id === selectedProduct.id
     );
 
-    selectedProducts[productIndex].quantity--;
+    selectedProducts[productIndex].quantity =
+      (selectedProducts[productIndex].quantity || 0) - 1;
 
     if (selectedProducts[productIndex].quantity <= 0) {
       selectedProducts.splice(productIndex, 1);

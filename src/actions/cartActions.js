@@ -15,10 +15,10 @@ export const get = () => {
   };
 };
 
-export const add = product => {
+export const add = productId => {
   return async dispatch => {
     dispatch({ type: PRODUCTS_LOADING });
-    const products = await api.cart.add(product);
+    const products = await api.cart.add(productId);
     dispatch({ type: ADDED_TO_CART, products });
   };
 };

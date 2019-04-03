@@ -3,21 +3,18 @@
     "id": 1,
     "name": "Product 1",
     "displayPrice": "R13.99",
-    "price": 13.99,
-    "quantity": 0
+    "price": 13.99
   },
   {
     "id": 2,
     "name": "Product 2",
     "displayPrice": "R130.99",
-    "price": 130.99,
-    "quantity": 0
+    "price": 130.99
   },
   {
     "id": 3,
     "name": "Product 3",
     "displayPrice": "R139.99",
-    "price": 139.99,
-    "quantity": 0
+    "price": 139.99
   }
 ]
