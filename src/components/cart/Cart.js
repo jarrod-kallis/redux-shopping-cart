@@ -15,7 +15,9 @@ class Cart extends React.Component {
     let productsDOM;
 
     if (this.props.selectedProducts.length === 0) {
-      productsDOM = <span>There are no items in your cart</span>;
+      productsDOM = (
+        <span data-cy="cart-empty">There are no items in your cart</span>
+      );
     } else {
       productsDOM = this.props.selectedProducts.map(product => {
         return (

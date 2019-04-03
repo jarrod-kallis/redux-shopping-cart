@@ -12,7 +12,7 @@ const Product = ({ name, price, quantity, click }) => {
   );
 
   return (
-    <div className="product" onClick={click}>
+    <div className="product" onClick={click} data-cy="product">
       <span className="name">{name}</span>
       <span className="spacer" />
       {priceDOM}

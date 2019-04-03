@@ -7,13 +7,17 @@ import './NavBar.css';
 class NavBar extends React.Component {
   render() {
     return (
-      <nav className="navigation-toolbar">
+      <nav className="navigation-toolbar" data-cy="navigation-toolbar">
         <ul>
           <li>
-            <NavLink to="/" exact activeClassName="active-link">Products</NavLink>
+            <NavLink to="/" exact activeClassName="active-link">
+              Products
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/cart" activeClassName="active-link">Cart ({this.props.numOfSelectedProducts})</NavLink>
+            <NavLink to="/cart" activeClassName="active-link">
+              Cart ({this.props.numOfSelectedProducts})
+            </NavLink>
           </li>
         </ul>
       </nav>
