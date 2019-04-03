@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Product from '../product/Product';
 import Loader from '../loader/Loader';
 import { remove as removeFromCart } from '../../actions/cartActions';
+import { getSelectedProducts } from '../../selectors/selectors';
 
 class Cart extends React.Component {
   render() {
@@ -13,18 +14,20 @@ class Cart extends React.Component {
 
     let productsDOM;
 
-    if (this.props.products.length === 0) {
+    if (this.props.selectedProducts.length === 0) {
       productsDOM = <span>There are no items in your cart</span>;
     } else {
-      productsDOM = this.props.products.map(product => (
-        <Product
-          key={product.id}
-          name={product.name}
-          price={product.displayPrice}
-          quantity={product.quantity}
-          click={() => this.props.removeFromCart(product)}
-        />
-      ));
+      productsDOM = this.props.selectedProducts.map(product => {
+        return (
+          <Product
+            key={product.id}
+            name={product.name}
+            price={product.displayPrice}
+            quantity={product.quantity}
+            click={() => this.props.removeFromCart(product)}
+          />
+        );
+      });
     }
 
     return <div>{productsDOM}</div>;
@@ -32,7 +35,7 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.cart.selectedProducts,
+  selectedProducts: getSelectedProducts(state),
   loading: state.cart.loading
 });
 
