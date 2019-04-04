@@ -1,46 +1,43 @@
+import {
+  goto,
+  getNavBar,
+  getEmptyCart,
+  CART_URL,
+  EMPTY_CART_MSG,
+  clickFirstProduct
+} from '../support/index';
+
 describe('Shopping Cart Application', () => {
   it('Shows the navigation bar', () => {
-    cy.visit('/');
-    cy.get('[data-cy=navigation-toolbar]').contains('Product');
-    cy.get('[data-cy=navigation-toolbar]').contains('Cart');
+    goto('/');
+    getNavBar().contains('Products');
+    getNavBar().contains('Cart');
   });
 
   it('Adds & removes a product from the cart', () => {
-    cy.visit('/');
-    cy.get('[data-cy=product]')
-      .first()
-      .click();
-    cy.get('[data-cy=navigation-toolbar]').contains('Cart (1)');
+    goto('/');
+    clickFirstProduct();
+    getNavBar().contains('Cart (1)');
 
-    cy.visit('/cart');
-    cy.get('[data-cy=product]')
-      .first()
-      .click();
-    cy.get('[data-cy=navigation-toolbar]').contains('Cart (0)');
-    cy.get('[data-cy=cart-empty]').contains('There are no items in your cart');
+    goto(CART_URL);
+    clickFirstProduct();
+    getNavBar().contains('Cart (0)');
+    getEmptyCart().contains(EMPTY_CART_MSG);
   });
 
   it('Adds & removes 2 products from the cart', () => {
-    cy.visit('/');
-    cy.get('[data-cy=product]')
-      .first()
-      .click();
-    cy.get('[data-cy=product]')
-      .first()
-      .click();
-    cy.get('[data-cy=navigation-toolbar]').contains('Cart (2)');
+    goto('/');
+    clickFirstProduct();
+    clickFirstProduct();
+    getNavBar().contains('Cart (2)');
 
-    cy.visit('/cart');
-    cy.get('[data-cy=product]')
-      .first()
-      .click();
-    cy.get('[data-cy=navigation-toolbar]').contains('Cart (1)');
+    goto(CART_URL);
+    clickFirstProduct();
+    getNavBar().contains('Cart (1)');
 
-    cy.get('[data-cy=product]')
-      .first()
-      .click();
-    cy.get('[data-cy=navigation-toolbar]').contains('Cart (0)');
+    clickFirstProduct();
+    getNavBar().contains('Cart (0)');
 
-    cy.get('[data-cy=cart-empty]').contains('There are no items in your cart');
+    getEmptyCart().contains(EMPTY_CART_MSG);
   });
 });

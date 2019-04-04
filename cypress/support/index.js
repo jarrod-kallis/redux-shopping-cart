@@ -14,7 +14,20 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+export const CART_URL = '/cart';
+export const EMPTY_CART_MSG = 'There are no items in your cart';
+
+export const goto = url => cy.visit(url);
+export const getNavBar = () => cy.get('[data-cy=navigation-toolbar]');
+const getProduct = () => cy.get('[data-cy=product]');
+export const getEmptyCart = () => cy.get('[data-cy=cart-empty]');
+
+export const clickFirstProduct = () =>
+  getProduct()
+    .first()
+    .click();
