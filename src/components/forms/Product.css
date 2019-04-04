@@ -1,0 +1,46 @@
+.product-page {
+  display: flex;
+  /* width: 100%; */
+}
+
+.product-page .product-list {
+  justify-content: center;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.product-page .product-form {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.product-form form {
+  padding: 10px 45px;
+  border: 1px solid grey;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.product-form form div {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.product-form form div label {
+  min-width: 100px;
+  text-align: right;
+  margin-right: 20px;
+
+  font-size: 20px;
+}
+
+.product-form form div input {
+  flex: 1;
+  max-width: 500px;
+  padding: 5px;
+
+  font-size: 16px;
+}

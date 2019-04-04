@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import fs from 'fs';
+import shortId from 'shortid';
 
 const app = express();
 app.use(bodyParser.json());
@@ -10,6 +11,39 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/api/products', (req, res) => {
   fs.readFile(path.join(__dirname, 'productData.json'), (err, data) => {
     setTimeout(() => res.send(data), 750);
+  });
+});
+
+// Insert or update a product
+app.post('/api/product', (req, res) => {
+  const selectedProduct = req.body.product;
+  const productFilePath = path.join(__dirname, 'productData.json');
+
+  fs.readFile(productFilePath, 'utf8', (err, data) => {
+    let products = data ? JSON.parse(data) : [];
+    let productToUpdateIndex = products.findIndex(
+      p => p.id === selectedProduct.id
+    );
+
+    if (productToUpdateIndex > -1) {
+      const productToUpdate = {
+        ...products[productToUpdateIndex],
+        ...selectedProduct
+      };
+
+      products = [
+        ...products.slice(0, productToUpdateIndex),
+        productToUpdate,
+        ...products.slice(productToUpdateIndex + 1)
+      ];
+    } else {
+      products.push({ id: shortId.generate(), ...selectedProduct });
+    }
+
+    fs.writeFile(productFilePath, JSON.stringify(products), () => {
+      // setTimeout(() => res.send(products), 5000);
+      res.send(products);
+    });
   });
 });
 

@@ -9,6 +9,19 @@ export default {
       } catch (e) {
         throw Error(e);
       }
+    },
+    add: async product => {
+      const res = await fetch('/api/product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ product })
+      });
+
+      const products = await res.json();
+
+      return products;
     }
   },
   cart: {

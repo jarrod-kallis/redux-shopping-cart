@@ -10,6 +10,11 @@ class NavBar extends React.Component {
       <nav className="navigation-toolbar" data-cy="navigation-toolbar">
         <ul>
           <li>
+            <NavLink to="/products" activeClassName="active-link">
+              Products Maintenance
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/" exact activeClassName="active-link">
               Products
             </NavLink>

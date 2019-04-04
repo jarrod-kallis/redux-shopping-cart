@@ -5,6 +5,7 @@ import Product from '../product/Product';
 import Loader from '../loader/Loader';
 import { remove as removeFromCart } from '../../actions/cartActions';
 import { getSelectedProducts } from '../../selectors/selectors';
+import { formatPrice } from '../../utils/utils';
 
 class Cart extends React.Component {
   render() {
@@ -24,7 +25,7 @@ class Cart extends React.Component {
           <Product
             key={product.id}
             name={product.name}
-            price={product.displayPrice}
+            price={formatPrice(product.price)}
             quantity={product.quantity}
             click={() => this.props.removeFromCart(product)}
           />

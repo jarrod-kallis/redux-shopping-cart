@@ -17,3 +17,13 @@ export const get = () => async dispatch => {
     return console.log(err);
   }
 };
+
+export const addUpdate = product => async dispatch => {
+  dispatch({ type: PRODUCTS_LOADING });
+  try {
+    const products = await api.products.add(product);
+    dispatch(productsRetrieved(products));
+  } catch (err) {
+    return console.log(err);
+  }
+};

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Product from './Product';
 import { add as addToCart } from '../../actions/cartActions';
 import Loader from '../loader/Loader';
+import { formatPrice } from '../../utils/utils';
 
 class Products extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class Products extends React.Component {
         <Product
           key={product.id}
           name={product.name}
-          price={product.displayPrice}
+          price={formatPrice(product.price)}
           click={() => this.props.addToCart(product.id)}
         />
       );
