@@ -47,6 +47,44 @@ app.post('/api/product', (req, res) => {
   });
 });
 
+// Delete a product
+app.delete('/api/product', (req, res) => {
+  const selectedProductId = req.body.id;
+  const productFilePath = path.join(__dirname, 'productData.json');
+
+  // We check if the product is in the cart
+  const cartFilePath = path.join(__dirname, 'cartData.json');
+  fs.readFile(cartFilePath, 'utf8', (err, data) => {
+    let selectedProducts = data ? JSON.parse(data) : [];
+    let productIndex = selectedProducts.findIndex(
+      p => p.id === selectedProductId
+    );
+
+    // Product exists in the cart - not allowed to delete
+    if (productIndex > -1) {
+      res.sendStatus(400);
+    } else {
+      fs.readFile(productFilePath, 'utf8', (err, data) => {
+        let products = data ? JSON.parse(data) : [];
+        let productToUpdateIndex = products.findIndex(
+          p => p.id === selectedProductId
+        );
+
+        if (productToUpdateIndex > -1) {
+          products = [
+            ...products.slice(0, productToUpdateIndex),
+            ...products.slice(productToUpdateIndex + 1)
+          ];
+        }
+
+        fs.writeFile(productFilePath, JSON.stringify(products), () => {
+          res.send(products);
+        });
+      });
+    }
+  });
+});
+
 app.get('/api/cart', (req, res) => {
   const cartFilePath = path.join(__dirname, 'cartData.json');
 
@@ -58,7 +96,6 @@ app.get('/api/cart', (req, res) => {
 });
 
 app.post('/api/cart', (req, res) => {
-  // body = {id}
   const selectedProduct = req.body;
   const cartFilePath = path.join(__dirname, 'cartData.json');
 

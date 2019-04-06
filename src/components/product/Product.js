@@ -2,7 +2,14 @@ import React from 'react';
 
 import './Product.css';
 
-const Product = ({ name, price, quantity, click }) => {
+const Product = ({
+  name,
+  price,
+  quantity,
+  allowRemove,
+  click,
+  removeClick
+}) => {
   const priceDOM = quantity ? (
     <span className="price">
       {price} <span>({quantity})</span>
@@ -16,6 +23,18 @@ const Product = ({ name, price, quantity, click }) => {
       <span className="name">{name}</span>
       <span className="spacer" />
       {priceDOM}
+      {allowRemove ? (
+        <button
+          style={{ padding: 0, margin: '0 0 0 10px', width: '25px' }}
+          onClick={event => {
+            // Stop the click from propagating to the div behind
+            event.stopPropagation();
+            removeClick();
+          }}
+        >
+          X
+        </button>
+      ) : null}
     </div>
   );
 };

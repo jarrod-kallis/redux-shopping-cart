@@ -18,6 +18,8 @@ class Products extends React.Component {
           name={product.name}
           price={formatPrice(product.price)}
           click={() => this.props.click(product)}
+          allowRemove={this.props.allowRemove}
+          removeClick={() => this.props.removeClick(product)}
         />
       );
     });

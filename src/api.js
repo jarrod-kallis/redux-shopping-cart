@@ -9,7 +9,9 @@ export default {
       } catch (e) {
         throw Error(e);
       }
-    },
+    }
+  },
+  product: {
     add: async product => {
       const res = await fetch('/api/product', {
         method: 'POST',
@@ -22,6 +24,24 @@ export default {
       const products = await res.json();
 
       return products;
+    },
+    delete: async productId => {
+      const res = await fetch('/api/product', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: productId })
+      });
+
+      debugger;
+      if (res.ok) {
+        const products = await res.json();
+
+        return products;
+      } else {
+        throw Error(`Request rejected with status ${res.status}`);
+      }
     }
   },
   cart: {

@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Products from '../product/Products';
 import ProductForm from './ProductForm';
 
 import './Product.css';
-import { get as getProducts, addUpdate } from '../../actions/productActions';
+import {
+  get as getProducts,
+  addUpdate,
+  remove as removeProduct
+} from '../../actions/productActions';
 
-const ProductPage = ({ getProducts, addUpdate }) => {
+const ProductPage = ({ error, getProducts, addUpdate, removeProduct }) => {
   const [selectedProduct, setStateSelectedProduct] = useState(null);
 
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
+  useEffect(() => {
+    if (error) {
+      toast.error('Something when wrong');
+      getProducts();
+    }
+  });
 
   const handleSubmit = async product => {
     await addUpdate(product);
@@ -28,10 +36,18 @@ const ProductPage = ({ getProducts, addUpdate }) => {
     setStateSelectedProduct(product);
   };
 
+  const deleteProduct = product => {
+    removeProduct(product.id);
+  };
+
   return (
     <div className="product-page">
       <div className="product-list">
-        <Products click={selectProduct} />
+        <Products
+          click={selectProduct}
+          removeClick={deleteProduct}
+          allowRemove
+        />
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button onClick={() => selectProduct({})}>Add New</button>
         </div>
@@ -50,8 +66,8 @@ const ProductPage = ({ getProducts, addUpdate }) => {
 };
 
 export default connect(
-  null,
-  { getProducts, addUpdate }
+  state => ({ error: state.products.error }),
+  { getProducts, addUpdate, removeProduct }
 )(ProductPage);
 
 // class ProductPage extends React.Component {
