@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Product from './Product';
-import { add as addToCart } from '../../actions/cartActions';
 import Loader from '../loader/Loader';
 import { formatPrice } from '../../utils/utils';
 
@@ -18,7 +17,7 @@ class Products extends React.Component {
           key={product.id}
           name={product.name}
           price={formatPrice(product.price)}
-          click={() => this.props.addToCart(product.id)}
+          click={() => this.props.click(product)}
         />
       );
     });
@@ -32,7 +31,4 @@ const mapStateToProps = state => ({
   products: state.products.products
 });
 
-export default connect(
-  mapStateToProps,
-  { addToCart }
-)(Products);
+export default connect(mapStateToProps)(Products);

@@ -8,7 +8,7 @@ import NavBar from './components/navigation/NavBar';
 import Products from './components/product/Products';
 import Cart from './components/cart/Cart';
 import { get as getProducts } from './actions/productActions';
-import { get as getCart } from './actions/cartActions';
+import { get as getCart, add as addToCart } from './actions/cartActions';
 import ProductPage from './components/forms/ProductPage';
 
 class App extends Component {
@@ -26,7 +26,15 @@ class App extends Component {
           </header>
           <main>
             <Switch>
-              <Route path="/" exact component={Products} />
+              <Route
+                path="/"
+                exact
+                render={() => (
+                  <Products
+                    click={product => this.props.addToCart(product.id)}
+                  />
+                )}
+              />
               <Route path="/cart" component={Cart} />
               <Route path="/products" exact component={ProductPage} />
             </Switch>
@@ -39,5 +47,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { getProducts, getCart }
+  { getProducts, getCart, addToCart }
 )(App);

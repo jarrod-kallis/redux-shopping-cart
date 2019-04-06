@@ -21,7 +21,9 @@ const ProductForm = ({ handleSubmit, onCancel }) => {
       </div>
       <div>
         <button type="submit">Submit</button>
-        <button onClick={onCancel}>Cancel</button>
+        <button type="button" onClick={onCancel}>
+          Cancel
+        </button>
       </div>
     </form>
   );

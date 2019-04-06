@@ -1,61 +1,108 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import Products from './Products';
+import Products from '../product/Products';
 import ProductForm from './ProductForm';
 
 import './Product.css';
-import { addUpdate } from '../../actions/productActions';
+import { get as getProducts, addUpdate } from '../../actions/productActions';
 
-class ProductPage extends React.Component {
-  state = {
-    selectedProduct: null
+const ProductPage = ({ getProducts, addUpdate }) => {
+  const [selectedProduct, setStateSelectedProduct] = useState(null);
+
+  // useEffect(() => {
+  //   getProducts();
+  // }, []);
+
+  const handleSubmit = async product => {
+    await addUpdate(product);
+
+    setStateSelectedProduct(null);
   };
 
-  handleSubmit = async product => {
-    await this.props.addUpdate(product);
-
-    this.setState({
-      selectedProduct: null
-    });
+  const handleCancel = () => {
+    setStateSelectedProduct(null);
   };
 
-  handleCancel = () => {
-    this.setState({
-      selectedProduct: null
-    });
+  const selectProduct = product => {
+    setStateSelectedProduct(product);
   };
 
-  selectProduct = product => {
-    this.setState({
-      selectedProduct: product
-    });
-  };
-
-  render() {
-    return (
-      <div className="product-page">
-        <div className="product-list">
-          <Products click={this.selectProduct} />
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <button onClick={() => this.selectProduct({})}>Add New</button>
-          </div>
+  return (
+    <div className="product-page">
+      <div className="product-list">
+        <Products click={selectProduct} />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button onClick={() => selectProduct({})}>Add New</button>
         </div>
-        {this.state.selectedProduct ? (
-          <div className="product-form">
-            <ProductForm
-              initialValues={this.state.selectedProduct}
-              onSubmit={this.handleSubmit}
-              onCancel={this.handleCancel}
-            />
-          </div>
-        ) : null}
       </div>
-    );
-  }
-}
+      {selectedProduct ? (
+        <div className="product-form">
+          <ProductForm
+            initialValues={selectedProduct}
+            onSubmit={handleSubmit}
+            onCancel={handleCancel}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+};
 
 export default connect(
   null,
-  { addUpdate }
+  { getProducts, addUpdate }
 )(ProductPage);
+
+// class ProductPage extends React.Component {
+//   state = {
+//     selectedProduct: null
+//   };
+
+//   handleSubmit = async product => {
+//     await this.props.addUpdate(product);
+
+//     this.setState({
+//       selectedProduct: null
+//     });
+//   };
+
+//   handleCancel = () => {
+//     this.setState({
+//       selectedProduct: null
+//     });
+//   };
+
+//   selectProduct = product => {
+//     this.setState({
+//       selectedProduct: product
+//     });
+//   };
+
+//   render() {
+//     return (
+//       <div className="product-page">
+//         <div className="product-list">
+//           <Products click={this.selectProduct} />
+//           <div style={{ display: 'flex', justifyContent: 'center' }}>
+//             <button onClick={() => this.selectProduct({})}>Add New</button>
+//           </div>
+//         </div>
+//         {this.state.selectedProduct ? (
+//           <div className="product-form">
+//             <ProductForm
+//               initialValues={this.state.selectedProduct}
+//               onSubmit={this.handleSubmit}
+//               onCancel={this.handleCancel}
+//             />
+//           </div>
+//         ) : null}
+//       </div>
+//     );
+//   }
+// }
+
+// export default connect(
+//   null,
+//   { addUpdate }
+// )(ProductPage);
