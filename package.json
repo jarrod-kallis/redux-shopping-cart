@@ -24,6 +24,7 @@
     "server": "nodemon --ignore src/server/*.json --watch src/server --exec babel-node -- src/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "eject": "react-scripts eject",
     "cypress": "cypress open"
   },
