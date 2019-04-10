@@ -11,17 +11,23 @@ class NavBar extends React.Component {
         <ul>
           <li>
             <NavLink to="/products" activeClassName="active-link">
-              Products Maintenance
+              Products Maintenance{' '}
+              <span role="img" aria-label="unicorn">
+                &#x1F984; 🤗
+              </span>
             </NavLink>
           </li>
           <li>
             <NavLink to="/" exact activeClassName="active-link">
-              Products
+              Products{' '}
+              <span role="img" aria-label="coconut">
+                &#x1F965;
+              </span>
             </NavLink>
           </li>
           <li>
             <NavLink to="/cart" activeClassName="active-link">
-              Cart ({this.props.numOfSelectedProducts})
+              Cart ({this.props.numOfSelectedProducts}) 💖
             </NavLink>
           </li>
         </ul>
