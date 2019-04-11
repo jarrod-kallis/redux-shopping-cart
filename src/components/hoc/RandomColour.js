@@ -1,7 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 const RandomColour = props => {
-  const colours = ['antiquewhite', 'aquamarine', 'chocolate', 'darkseagreen'];
+  const colours = [
+    'cadetblue'
+    // 'antiquewhite',
+    // 'aquamarine',
+    // 'chocolate',
+    // 'darkseagreen'
+  ];
 
   const [randomColour, setStateRandomColour] = useState(
     colours[Math.trunc(Math.random() * colours.length)]
@@ -9,7 +15,6 @@ const RandomColour = props => {
 
   useEffect(() => {
     const colour = Math.trunc(Math.random() * colours.length);
-    console.log(colour);
     setStateRandomColour(colours[colour]);
   }, []);
 
