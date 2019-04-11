@@ -11,6 +11,8 @@ import { get as getProducts } from './actions/productActions';
 import { get as getCart, add as addToCart } from './actions/cartActions';
 import ProductPage from './components/forms/ProductPage';
 
+import RandomColour from './components/hoc/RandomColour';
+
 class App extends Component {
   componentDidMount() {
     this.props.getProducts();
@@ -22,7 +24,9 @@ class App extends Component {
       <Router>
         <div className="App">
           <header>
-            <NavBar />
+            <RandomColour>
+              <NavBar />
+            </RandomColour>
           </header>
           <main>
             <Switch>

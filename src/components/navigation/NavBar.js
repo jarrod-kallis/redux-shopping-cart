@@ -7,7 +7,11 @@ import './NavBar.css';
 class NavBar extends React.Component {
   render() {
     return (
-      <nav className="navigation-toolbar" data-cy="navigation-toolbar">
+      <nav
+        className="navigation-toolbar"
+        data-cy="navigation-toolbar"
+        style={{ backgroundColor: this.props.randomColour }}
+      >
         <ul>
           <li>
             <NavLink to="/products" activeClassName="active-link">
