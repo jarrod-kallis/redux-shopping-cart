@@ -1,1 +1,6 @@
-[{"id":"J3mL25VxZ","name":"Product 3c","price":1.57},{"id":"1y2ROw6-L","name":"Product 2b","price":2}]
+[
+  { "id": "J3mL25VxZ", "name": "Product 3c", "price": 1.57 },
+  { "id": "1y2ROw6-L", "name": "Product 2b", "price": 2.5 },
+  { "id": "li_m8cab5", "name": "Product 1a", "price": 1.11 },
+  { "id": "P1hqiHrBV", "name": "Product 5", "price": 0 }
+]

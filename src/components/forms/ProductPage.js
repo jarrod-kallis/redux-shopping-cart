@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import Products from '../product/Products';
-import ProductForm from './ProductForm';
+import ProductForm from './ProductFormRef';
 
 import './Product.css';
 import {

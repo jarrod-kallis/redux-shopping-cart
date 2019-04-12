@@ -12,7 +12,7 @@ class NavBar extends React.Component {
     boxShadow: `5px 5px 10px ${this.props.rgbaColour}`,
     display: 'inline-block',
     transform: 'rotate(-5deg)',
-    '-webkit-backface-visibility': 'hidden'
+    WebkitBackfaceVisibility: 'hidden'
   };
 
   render() {

@@ -34,7 +34,6 @@ export default {
         body: JSON.stringify({ id: productId })
       });
 
-      debugger;
       if (res.ok) {
         const products = await res.json();
 
