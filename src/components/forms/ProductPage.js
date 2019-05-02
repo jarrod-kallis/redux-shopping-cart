@@ -5,7 +5,8 @@ import { toast } from 'react-toastify';
 import Products from '../product/Products';
 import ProductForm from './ProductFormRef';
 
-import './Product.css';
+// import './Product.module.css';
+import styles from './Product.module.css';
 import {
   get as getProducts,
   addUpdate,
@@ -41,8 +42,8 @@ const ProductPage = ({ error, getProducts, addUpdate, removeProduct }) => {
   };
 
   return (
-    <div className="product-page">
-      <div className="product-list">
+    <div className={styles.productPage}>
+      <div className={styles.productList}>
         <Products
           click={selectProduct}
           removeClick={deleteProduct}
@@ -53,7 +54,7 @@ const ProductPage = ({ error, getProducts, addUpdate, removeProduct }) => {
         </div>
       </div>
       {selectedProduct ? (
-        <div className="product-form">
+        <div className={styles.productForm}>
           <ProductForm
             initialValues={selectedProduct}
             onSubmit={handleSubmit}
